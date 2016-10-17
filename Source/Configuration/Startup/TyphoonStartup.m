@@ -19,7 +19,10 @@
 
 #import <objc/runtime.h>
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_WATCH
+#import <WatchKit/WatchKit.h>
+#define ApplicationClass [WKExtension class]
+#elif TARGET_OS_IPHONE
 #define ApplicationClass [UIApplication class]
 #elif TARGET_OS_MAC
 #define ApplicationClass [NSApplication class]
@@ -32,17 +35,21 @@
 #endif
 
 
+
 @implementation TyphoonStartup
 
 + (void)load
 {
+#if TARGET_OS_WATCH
+#else
     __weak __typeof(self) weakSelf = self;
     [[NSNotificationCenter defaultCenter]
-        addObserverForName:ApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue]
-        usingBlock:^(NSNotification* note) {
-            [weakSelf releaseInitialFactory];
-        }];
-
+     addObserverForName:ApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue]
+     usingBlock:^(NSNotification* note) {
+         [weakSelf releaseInitialFactory];
+     }];
+#endif
+    
     [self swizzleSetDelegateMethodOnApplicationClass];
 }
 

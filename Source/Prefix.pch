@@ -13,7 +13,13 @@
         #define typhoon_shorthand
     #endif
 
-    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+
+#if TARGET_OS_WATCH
+    // WatchOS
+        #import <Availability.h>
+        #import <WatchKit/WatchKit.h>
+        #import <Foundation/Foundation.h>
+#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     // iOS
         #import <Availability.h>
 

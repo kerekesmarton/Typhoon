@@ -10,7 +10,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_WATCH
+#import <WatchKit/WatchKit.h>
+#elif TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
@@ -39,7 +41,7 @@ FOUNDATION_EXPORT const unsigned char TyphoonVersionString[];
 
 #import "TyphoonAutoInjection.h"
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 #import "TyphooniOS.h"
 #endif
 
